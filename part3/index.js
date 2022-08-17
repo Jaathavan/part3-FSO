@@ -24,8 +24,19 @@ const persons = [
     }
 ]
 
+//Displays persons in JSON on api/persons
 app.get('/api/persons', (request, response) => {
     response.json(persons)
+})
+
+//Displays number of ppl in phonebook on /info
+app.get('/info', (request, response) => {
+    response.send(
+        `
+        <div>Phonebook has info for ${persons.length} people</div>
+        ${new Date()}
+        `
+    )
 })
 
 const PORT = 3001
