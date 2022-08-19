@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
 
+app.use(express.json())
+
 let persons = [
     { 
       "id": 1,
@@ -57,6 +59,17 @@ app.delete('/api/persons/:id', (request, response) => {
     persons = persons.filter(person => person.id !== id)
     
     response.status(204).end()
+})
+
+const generateId = () => {
+    return Math.random * 100000
+}
+
+//POST new resource
+app.post('/api/persons', (request, response) => {
+    const person = request.body
+    console.log(person)
+    response.json(person)
 })
 
 //Listen to PORT
