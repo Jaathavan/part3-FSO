@@ -62,13 +62,27 @@ app.delete('/api/persons/:id', (request, response) => {
 })
 
 const generateId = () => {
-    return Math.random * 100000
+    return Math.floor(Math.random() * 100000)
 }
 
 //POST new resource
 app.post('/api/persons', (request, response) => {
-    const person = request.body
-    console.log(person)
+    const body = request.body
+    
+    if (!body.name) {
+        return response.status(400).json({
+            error: 'content missing'
+        })
+    }
+
+    const person = {
+        id: generateId(),
+        name: body.name,
+        number: body.number
+    }
+
+    persons = persons.concat(person)
+
     response.json(person)
 })
 
