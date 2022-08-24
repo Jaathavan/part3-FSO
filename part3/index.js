@@ -38,7 +38,7 @@ app.get('/api/persons', (request, response) => {
     response.json(persons)
 })
 
-//Displays number of ppl in phonebook on /info
+//Displays number of people in phonebook on /info
 app.get('/info', (request, response) => {
     response.send(
         `
@@ -60,7 +60,7 @@ app.get('/api/persons/:id', (request, response) => {
     }
 })
 
-//Delete resource
+//DELETE resource
 app.delete('/api/persons/:id', (request, response) => {
     const id = Number(request.params.id)
     persons = persons.filter(person => person.id !== id)
