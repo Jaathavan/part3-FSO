@@ -11,26 +11,25 @@ const url = `mongodb+srv://jaath_notes:${password}@cluster0.p7nfr0m.mongodb.net/
 
 const personSchema = new mongoose.Schema({
     name: String,
-    number: Number,
+    number: String,
 })
   
-const Person = mongoose.model('Person', noteSchema)
+const Person = mongoose.model('Person', personSchema)
   
 mongoose
     .connect(url)
     .then((result) => {
-        console.log('connected')
         if (process.argv.length === 5) {
             const person = new Person({
                 name: process.argv[3],
                 number: process.argv[4]
             })
+            console.log(`added ${person.name} number ${person.number} to phonebook`)
+            return person.save()
         }
-  
-        return person.save()
+
     })
     .then(() => {
-        console.log('note saved!')
         return mongoose.connection.close()
     })
     .catch((err) => console.log(err))
