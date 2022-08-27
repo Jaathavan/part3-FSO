@@ -16,3 +16,21 @@ const personSchema = new mongoose.Schema({
   
 const Person = mongoose.model('Person', noteSchema)
   
+mongoose
+    .connect(url)
+    .then((result) => {
+        console.log('connected')
+        if (process.argv.length === 5) {
+            const person = new Person({
+                name: process.argv[3],
+                number: process.argv[4]
+            })
+        }
+  
+        return person.save()
+    })
+    .then(() => {
+        console.log('note saved!')
+        return mongoose.connection.close()
+    })
+    .catch((err) => console.log(err))
