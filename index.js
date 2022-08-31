@@ -5,7 +5,9 @@ const cors = require('cors')
 require('dotenv').config()
 const Person = require('./models/person')
 
-morgan.token('data', function (req, res) { return JSON.stringify(req.body) })
+morgan.token('data', function (req, res) {
+    return request.method === "POST" ? JSON.stringify(req.body) : " " 
+})
 
 app.use(express.json())
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :data'))
@@ -47,37 +49,19 @@ app.delete('/api/persons/:id', (request, response) => {
 
 //POST new resource
 app.post('/api/persons', (request, response) => {
-    const body = request.body
-    
-    if (body.name === undefined) {
-        return response.status(400).json({
-            error: 'name is missing'
-        })
-    }
-    else if (body.number === undefined) {
-        return response.status(400).json({
-            error: 'number is missing'
-        })
-    }
-    // else if (Person.find({ name: body.name })) {
-    //     return response.status(400).json({
-    //         error: 'name must be unique'
-    //     })
-    // }
-    // else if (Person.find({ number: body.number })) {
-    //     return response.status(400).json({
-    //         error: 'number must be unique'
-    //     })
-    // }
+    const { name, number } = request.body
 
     const person = new Person({
-        name: body.name,
-        number: body.number
+        name: name,
+        number: number
     })
 
-    person.save().then(savedPerson => {
-        response.json(savedPerson)
-    })
+    person
+        .save()
+        .then(savedPerson => {
+            response.json(savedPerson)
+        })
+        .catch(error => next(error))
 })
 
 const unknownEndpoint = (request, response) => {
