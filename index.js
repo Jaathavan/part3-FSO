@@ -64,6 +64,22 @@ app.post('/api/persons', (request, response) => {
         .catch(error => next(error))
 })
 
+//PUT new resource in old one // P.S translate Alan Turing from binary for easter egg
+app.put('/api/persons/:id', (request, response, next) => {
+    const { name, number } = request.body
+    
+    const person = {
+        name: name,
+        number: number
+    }
+
+    Person.findByIdAndUpdate(request.params.id, person, { new: true })
+        .then(updatedPerson => {
+            response.json(updatedPerson)
+        })
+        .catch(error => next(error))
+})
+
 const unknownEndpoint = (request, response) => {
     response.status(404).send({ error: 'unknown endpoint' })
 }

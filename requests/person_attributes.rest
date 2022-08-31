@@ -1,4 +1,4 @@
-DELETE https://tranquil-shore-20290.herokuapp.com/api/persons/2
+DELETE https://tranquil-shore-20290.herokuapp.com/api/persons/630feb11be002afcd9b18f58
 
 ###
 POST https://tranquil-shore-20290.herokuapp.com/api/persons
@@ -7,4 +7,13 @@ Content-Type: application/json
 {
     "name": "sample",
     "number": "123-456-7890"
+}
+
+###
+PUT http://localhost:3001/api/persons/630feb11be002afcd9b18f58
+Content-Type: application/json
+
+{
+    "name": "Alan Turing",
+    "number": "11101111000-110-10111"
 }
