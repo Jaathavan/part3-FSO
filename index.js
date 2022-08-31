@@ -38,7 +38,9 @@ let persons = [
 
 //Displays persons in JSON on api/persons
 app.get('/api/persons', (request, response) => {
-    response.json(persons)
+    Person.find({}).then(persons => {
+        response.json(persons)
+    })
 })
 
 //Displays number of people in phonebook on /info
