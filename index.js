@@ -6,7 +6,7 @@ require('dotenv').config()
 const Person = require('./models/person')
 
 morgan.token('data', function (req, res) {
-    return request.method === "POST" ? JSON.stringify(req.body) : " " 
+    return req.method === "POST" ? JSON.stringify(req.body) : " " 
 })
 
 app.use(express.json())
