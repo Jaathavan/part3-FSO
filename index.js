@@ -16,12 +16,15 @@ app.use(express.static('build'))
 
 //Displays number of people in phonebook on /info
 app.get('/info', (request, response) => {
-    response.send(
-        `
-        <div>Phonebook has info for ${persons.length} people</div>
-        ${new Date()}
-        `
-    )
+    Person.find({})
+        .then(people => {
+            response.send(
+                `
+                <div>Phonebook has info for ${people.length} people</div>
+                <div>${new Date()}</div>
+                `
+            )
+        })
 })
 
 //Displays persons in JSON on api/persons
