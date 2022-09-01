@@ -76,11 +76,6 @@ app.post('/api/persons', (request, response, next) => {
 //PUT new resource in old one // P.S translate Alan Turing from binary for easter egg
 app.put('/api/persons/:id', (request, response, next) => {
     const { name, number } = request.body
-    
-    const person = {
-        name: name,
-        number: number
-    }
 
     Person.findByIdAndUpdate(
         request.params.id,
