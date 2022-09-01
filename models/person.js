@@ -1,8 +1,9 @@
-const mongoose = require('mongoose');
+/* eslint-disable no-param-reassign */
+import { connect, Schema, model } from 'mongoose';
 
 const url = process.env.MONGODB_URI;
 
-mongoose.connect(url)
+connect(url)
   .then(() => {
     console.log('Connected to MongoDB');
   })
@@ -10,31 +11,34 @@ mongoose.connect(url)
     console.log('Error connecting to MongoDB:', error.message);
   });
 
-const personSchema = new mongoose.Schema({
+const personSchema = new Schema({
   name: {
     type: String,
     minLength: 3,
-    required: true
+    required: true,
   },
   number: {
     type: String,
     minLength: 8,
     validate: {
-      validator: function(v) {
+      validator(v) {
         return /^\d{2,3}-\d{6,}/.test(v);
       },
-      message: props => `${props.value} is not a valid phone number!`
+      message: (props) => `${props.value} is not a valid phone number!`,
     },
-    required: true
-  }
+    required: true,
+  },
 });
 
 personSchema.set('toJSON', {
   transform: (document, returnedObject) => {
+    // eslint-disable-next-line no-param-reassign, no-underscore-dangle
     returnedObject.id = returnedObject._id.toString();
-    delete returnedObject._id
-    delete returnedObject.__v
-  }
+    // eslint-disable-next-line no-underscore-dangle
+    delete returnedObject._id;
+    // eslint-disable-next-line no-underscore-dangle
+    delete returnedObject.__v;
+  },
 });
 
-module.exports = mongoose.model('Person', personSchema)
+export default model('Person', personSchema);
