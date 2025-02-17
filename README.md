@@ -16,5 +16,5 @@ It is a simple fullkstack phonebook App using tools such as:
 
 P.S. Alan Turing is quite special
 
-L. Heroku stopped offering free dynos so now it doesn't work :(
+Heroku stopped offering free dynos so now it doesn't work :(
 Also the Alan Turing message was that his number was in binary and when you translate from binary it is his birthday
